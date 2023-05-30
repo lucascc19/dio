@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 80%;
+  max-width: 90%;
   height: 60px;
 
   display: flex;
@@ -10,13 +10,17 @@ export const Container = styled.div`
   align-items: center;
   margin: 0 auto;
 `;
-
 export const Row = styled.div`
   display: flex;
   column-gap: 1.25rem;
   align-items: center;
-`;
 
+  @media (max-width: 380px) {
+    &:last-child {
+      display: none;
+    }
+  }
+`;
 export const Wrapper = styled.div`
     background-color: rgb(21, 21, 21);
     width: 100%;
@@ -25,7 +29,6 @@ export const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
 `;
-
 export const BuscarInputContainer = styled.div`
   width: 275px;
   height: 30px;

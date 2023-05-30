@@ -9,24 +9,29 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   cursor: pointer;
   padding: 0.5rem 1.75rem;
   border-radius: 0.5rem;
+  width: 100%;
+  max-width: 167px;
+  height: 33px;
 
   ${({ variant }) =>
     variant === "primary" &&
     css`
-      min-width: 167px;
-      height: 33px;
       background: transparent;
-      border: 1px solid #FFF;
+      border: 1px solid #fff;
+
+      &:hover {
+        background: #2e2e2e;
+      }
     `}
 
   ${({ variant }) =>
     variant === "secondary" &&
     css`
-      min-width: 167px;
-      height: 33px;
-      background: #E4105D;
-      border: none
+      background: #e4105d;
+      border: none;
+
+      &:hover {
+        background: #e74a83;
+      }
     `}
 `;
-
-
