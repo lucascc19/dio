@@ -3,9 +3,11 @@ import { MdEmail, MdLock } from "react-icons/md";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
-// import { api } from "../../services/api";
+import { api } from "../../services/api";
 
-// import { useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import {
   Container,
@@ -19,39 +21,56 @@ import {
   ForgetPassword,
 } from "./Login.style";
 
+interface LoginForm {
+  name: string;
+  email: string;
+  password: string;
+}
+
+const schema = yup
+  .object({
+    email: yup
+      .string()
+      .email("E-mail não é válido ")
+      .required("Campo obrigatório"),
+    password: yup
+      .string()
+      .min(3, "No mínimo 3 caracteres")
+      .required("Campo obrigatório"),
+  })
+  .required();
+
 export const Login = () => {
   const navigate = useNavigate();
-  const handleNextRoute = () => {
-    navigate("/feed");
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginForm>({
+    resolver: yupResolver(schema),
+    reValidateMode: "onChange",
+    mode: "onChange",
+  });
+
+  const onSubmit = async (formData: LoginForm) => {
+    try {
+      const { data } = await api.get(
+        `/users?email=${formData.email}&password=${formData.password}`
+      );
+
+      if (data.length && data[0].id) {
+        navigate("/feed");
+        return;
+      }
+
+      alert("Usuário ou senha inválido");
+    } catch (e) {
+      //TODO: HOUVE UM ERRO
+    }
   };
 
-  // const {
-  //   control,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm({
-  //   reValidateMode: "onChange",
-  //   mode: "onChange",
-  // });
-
-  // const onSubmit = async (formData) => {
-  //   try {
-  //     const { data } = await api.get(
-  //       `/users?email=${formData.email}&senha=${formData.senha}`
-  //     );
-
-  //     if (data.length && data[0].id) {
-  //       navigate("/feed");
-  //       return;
-  //     }
-
-  //     alert("Usuário ou senha inválido");
-  //   } catch (e) {
-  //     //TODO: HOUVE UM ERRO
-  //   }
-  // };
-
-  // console.log("errors", errors);
+  console.log("errors", errors);
 
   return (
     <>
@@ -67,29 +86,31 @@ export const Login = () => {
           <Wrapper>
             <TitleLogin>Faça seu cadastro</TitleLogin>
             <SubtitleLogin>Faça seu login e make the change._</SubtitleLogin>
-            <form>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.5rem",
+              }}
+            >
               <Input
                 name="email"
-                type={""}
-                control={""}
+                type="email"
+                error={errors?.email?.message}
+                control={control}
                 placeholder="E-mail"
                 leftIcon={<MdEmail />}
               />
-              {/* {errors.email && <span>E-mail é obrigatório</span>} */}
               <Input
-                name="senha"
+                name="password"
                 type="password"
-                control={""}
+                error={errors?.password?.message}
+                control={control}
                 placeholder="Senha"
                 leftIcon={<MdLock />}
               />
-              {/* {errors.senha && <span>Senha é obrigatório</span>} */}
-              <Button
-                title="Entrar"
-                variant="secondary"
-                type="submit"
-                onClick={handleNextRoute}
-              />
+              <Button title="Entrar" variant="secondary" type="submit" />
             </form>
             <Row>
               <ForgetPassword>Esqueci minha senha</ForgetPassword>
