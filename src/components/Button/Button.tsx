@@ -2,7 +2,7 @@ import { ButtonContainer } from "./Button.style";
 
 interface IButton {
   title: string;
-  type?: "button" | "submit" | "reset" | undefined;
+  type?: "button" | "submit" | "reset";
   variant: string;
   onClick?: () => void;
 }

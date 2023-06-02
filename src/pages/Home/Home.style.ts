@@ -12,24 +12,24 @@ export const Container = styled.main`
   justify-content: space-between;
 `;
 export const Section = styled.section`
+  &:first-child {
+    width: 450px;
+  }
+  @media (max-width: 1134px) {
+    &:last-child {
+      zoom: 70%;
+    }
+  }
+  @media (max-width: 800px) {
+    &:last-child {
+      display: none;
+    }
+  }
+  @media (max-width: 380px) {
     &:first-child {
-        width: 450px;
+      zoom: 70%;
     }
-    
-    @media (max-width: 1134px) {
-        &:last-child {
-            zoom: 70%
-    }
-    @media (max-width: 800px) {
-        &:last-child {
-            display: none;
-    }
-    @media (max-width: 380px) {
-        &:first-child {
-            zoom: 70%
-          
-        }
-    }
+  }
 `;
 export const Title = styled.h2`
   font-family: "Open Sans";
