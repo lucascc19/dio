@@ -72,4 +72,6 @@ export const Input = styled.input`
   flex: 1;
   border: 0;
   color: #ffffff;
+  outline: none;
+  padding: 0 0.5rem;
 `;

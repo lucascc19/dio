@@ -19,7 +19,7 @@ export const Home = () => {
 
   return (
     <>
-      <Header />
+      <Header autenticado={false} />
       <Container>
         <Section>
           <div>

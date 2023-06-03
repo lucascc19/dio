@@ -74,7 +74,7 @@ export const Login = () => {
 
   return (
     <>
-      <Header />
+      <Header autenticado={false} />
       <Container>
         <Column>
           <Title>
