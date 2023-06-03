@@ -127,7 +127,7 @@ export const SignUp = () => {
               </SubtitleLogin>
               <CreateAccount>
                 <Text>Já tenho conta.</Text>
-                <SignIn onClick={}>Fazer Login</SignIn>
+                <SignIn onClick={handleClickSignIn}>Fazer Login</SignIn>
               </CreateAccount>
             </Row>
           </Wrapper>
