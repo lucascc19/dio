@@ -83,4 +83,5 @@ export const CreateAccount = styled.p`
   line-height: 19px;
 
   color: #23dd7a;
+  cursor: pointer;
 `;

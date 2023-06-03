@@ -7,30 +7,38 @@ import {
   BuscarInputContainer,
   Input,
   Row,
-  Menu,
   MenuRight,
   UserPicture,
 } from "./Header.style";
+import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   autenticado: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({ autenticado }) => {
+  const navigate = useNavigate();
+
+  const handleClickSignUp = () => {
+    navigate("/signup");
+  };
+
+  const handleClickLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <Wrapper>
       <Container>
         <Row>
           <img src={logo} alt="Logo da dio" />
-          {autenticado ? (
+          {autenticado && (
             <>
               <BuscarInputContainer>
                 <Input placeholder="Buscar..." />
               </BuscarInputContainer>
-              <Menu>Live Code</Menu>
-              <Menu>Global</Menu>
             </>
-          ) : null}
+          )}
         </Row>
         <Row>
           {autenticado ? (
@@ -38,8 +46,16 @@ export const Header: React.FC<HeaderProps> = ({ autenticado }) => {
           ) : (
             <>
               <MenuRight href="/">Home</MenuRight>
-              <Button title="Entrar" variant="primary" />
-              <Button title="Cadastrar" variant="secondary" />
+              <Button
+                title="Entrar"
+                variant="primary"
+                onClick={handleClickLogin}
+              />
+              <Button
+                title="Cadastrar"
+                variant="secondary"
+                onClick={handleClickSignUp}
+              />
             </>
           )}
         </Row>

@@ -1,5 +1,16 @@
 {
   "users": [
-    { "id": 1, "name": "Lucas", "email": "lucas@email.com", "password":"123456" }
+    {
+      "name": "Lucas Rodrigues Oliveira",
+      "email": "lucascc@alu.ufc.br",
+      "password": "Hhj086il.3002",
+      "id": 1
+    },
+    {
+      "name": "Lara Roque Sartori",
+      "email": "lararoque2003@hotmail.com",
+      "password": "Lovea1b2j3140803",
+      "id": 2
+    }
   ]
 }

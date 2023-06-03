@@ -43,6 +43,11 @@ const schema = yup
 export const Login = () => {
   const navigate = useNavigate();
 
+
+const handleClickSignUp = () => {
+  navigate("/signup");
+};
+
   const {
     control,
     handleSubmit,
@@ -114,7 +119,7 @@ export const Login = () => {
             </form>
             <Row>
               <ForgetPassword>Esqueci minha senha</ForgetPassword>
-              <CreateAccount>Criar Conta</CreateAccount>
+              <CreateAccount onClick={handleClickSignUp}>Criar Conta</CreateAccount>
             </Row>
           </Wrapper>
         </Column>
