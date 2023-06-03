@@ -20,6 +20,6 @@ export const InputText = styled.input`
   outline: none;
 `;
 export const ErrorMessage = styled.p`
-  color: #FF0000;
+  color: #ff0000;
   font-size: 0.875rem;
 `;

@@ -10,7 +10,6 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   padding: 0.5rem 1.75rem;
   border-radius: 0.5rem;
   width: 100%;
-  max-width: 167px;
   height: 33px;
 
   ${({ variant }) =>
