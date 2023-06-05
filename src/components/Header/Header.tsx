@@ -1,4 +1,4 @@
-import React from "react";
+import { useContext } from "react";
 import logo from "../../assets/logo-dio.png";
 import { Button } from "../Button";
 import {
@@ -11,13 +11,12 @@ import {
   UserPicture,
 } from "./Header.style";
 import { useNavigate } from "react-router-dom";
+import { AuthContent } from "../../context/auth";
 
-interface HeaderProps {
-  autenticado: boolean;
-}
-
-export const Header: React.FC<HeaderProps> = ({ autenticado }) => {
+export const Header = () => {
   const navigate = useNavigate();
+
+  const { user, handleSignOut } = useContext(AuthContent);
 
   const handleClickSignUp = () => {
     navigate("/signup");
@@ -32,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({ autenticado }) => {
       <Container>
         <Row>
           <img src={logo} alt="Logo da dio" />
-          {autenticado && (
+          {user.id && (
             <>
               <BuscarInputContainer>
                 <Input placeholder="Buscar..." />
@@ -41,8 +40,11 @@ export const Header: React.FC<HeaderProps> = ({ autenticado }) => {
           )}
         </Row>
         <Row>
-          {autenticado ? (
-            <UserPicture src="https://avatars.githubusercontent.com/u/62766998?v=4" />
+          {user.id ? (
+            <>
+              <UserPicture src="https://avatars.githubusercontent.com/u/62766998?v=4" />
+              <a href="/" onClick={handleSignOut}>Sair</a>
+            </>
           ) : (
             <>
               <MenuRight href="/">Home</MenuRight>

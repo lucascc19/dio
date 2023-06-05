@@ -3,8 +3,7 @@ import { MdEmail, MdLock } from "react-icons/md";
 import { Button } from "../../components/Button";
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
-import { api } from "../../services/api";
-
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -20,8 +19,9 @@ import {
   CreateAccount,
   ForgetPassword,
 } from "./Login.style";
+import { AuthContent } from "../../context/auth";
 
-interface LoginForm {
+interface IFormData {
   name: string;
   email: string;
   password: string;
@@ -42,40 +42,25 @@ const schema = yup
 
 export const Login = () => {
   const navigate = useNavigate();
+  const { handleLogin } = useContext(AuthContent);
 
-
-const handleClickSignUp = () => {
-  navigate("/signup");
-};
+  const handleClickSignUp = () => {
+    navigate("/signup");
+  };
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginForm>({
+  } = useForm<IFormData>({
     resolver: yupResolver(schema),
     reValidateMode: "onChange",
     mode: "onChange",
   });
 
-  const onSubmit = async (formData: LoginForm) => {
-    try {
-      const { data } = await api.get(
-        `/users?email=${formData.email}&password=${formData.password}`
-      );
-
-      if (data.length && data[0].id) {
-        navigate("/feed");
-        return;
-      }
-
-      alert("Usuário ou senha inválido");
-    } catch (e) {
-      //TODO: HOUVE UM ERRO
-    }
+  const onSubmit = async (formData: IFormData) => {
+    handleLogin(formData)
   };
-
-  console.log("errors", errors);
 
   return (
     <>
@@ -119,7 +104,9 @@ const handleClickSignUp = () => {
             </form>
             <Row>
               <ForgetPassword>Esqueci minha senha</ForgetPassword>
-              <CreateAccount onClick={handleClickSignUp}>Criar Conta</CreateAccount>
+              <CreateAccount onClick={handleClickSignUp}>
+                Criar Conta
+              </CreateAccount>
             </Row>
           </Wrapper>
         </Column>
